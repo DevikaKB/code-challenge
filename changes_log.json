@@ -7,7 +7,8 @@
                 "firstName": "John",
                 "lastName": "Smith",
                 "address": "123 Street St",
-                "entryDate": "2014-05-07T17:30:20+00:00"
+                "entryDate": "2014-05-07T17:30:20+00:00",
+                "_originalIndex": 0
             },
             "new_record": {
                 "_id": "jkj238238jdsnfsj23",
@@ -15,7 +16,8 @@
                 "firstName": "Ted",
                 "lastName": "Jones",
                 "address": "456 Neat St",
-                "entryDate": "2014-05-07T17:32:20+00:00"
+                "entryDate": "2014-05-07T17:32:20+00:00",
+                "_originalIndex": 3
             },
             "changes": {
                 "email": {
@@ -47,7 +49,8 @@
                 "firstName": "John",
                 "lastName": "Smith",
                 "address": "123 Street St",
-                "entryDate": "2014-05-07T17:32:20+00:00"
+                "entryDate": "2014-05-07T17:32:20+00:00",
+                "_originalIndex": 4
             },
             "new_record": {
                 "_id": "qest38238jdsnfsj23",
@@ -55,7 +58,8 @@
                 "firstName": "John",
                 "lastName": "Smith",
                 "address": "123 Street St",
-                "entryDate": "2014-05-07T17:32:20+00:00"
+                "entryDate": "2014-05-07T17:32:20+00:00",
+                "_originalIndex": 5
             },
             "changes": {
                 "_id": {
@@ -71,7 +75,8 @@
                 "firstName": "John",
                 "lastName": "Smith",
                 "address": "123 Street St",
-                "entryDate": "2014-05-07T17:32:20+00:00"
+                "entryDate": "2014-05-07T17:32:20+00:00",
+                "_originalIndex": 5
             },
             "new_record": {
                 "_id": "wuj08238jdsnfsj23",
@@ -79,7 +84,8 @@
                 "firstName": "Micah",
                 "lastName": "Valmer",
                 "address": "123 Street St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
+                "entryDate": "2014-05-07T17:33:20+00:00",
+                "_originalIndex": 7
             },
             "changes": {
                 "_id": {
@@ -107,7 +113,8 @@
                 "firstName": "Ted",
                 "lastName": "Masters",
                 "address": "44 North Hampton St",
-                "entryDate": "2014-05-07T17:31:20+00:00"
+                "entryDate": "2014-05-07T17:31:20+00:00",
+                "_originalIndex": 1
             },
             "new_record": {
                 "_id": "belr28238jdsnfsj23",
@@ -115,7 +122,8 @@
                 "firstName": "Tallulah",
                 "lastName": "Smith",
                 "address": "123 Water St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
+                "entryDate": "2014-05-07T17:33:20+00:00",
+                "_originalIndex": 8
             },
             "changes": {
                 "_id": {
@@ -147,7 +155,8 @@
                 "firstName": "Ted",
                 "lastName": "Jones",
                 "address": "456 Neat St",
-                "entryDate": "2014-05-07T17:32:20+00:00"
+                "entryDate": "2014-05-07T17:32:20+00:00",
+                "_originalIndex": 3
             },
             "new_record": {
                 "_id": "jkj238238jdsnfsj23",
@@ -155,7 +164,8 @@
                 "firstName": "John",
                 "lastName": "Smith",
                 "address": "888 Mayberry St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
+                "entryDate": "2014-05-07T17:33:20+00:00",
+                "_originalIndex": 9
             },
             "changes": {
                 "email": {
@@ -179,101 +189,6 @@
                     "to": "2014-05-07T17:33:20+00:00"
                 }
             }
-        },
-        {
-            "replaced_record": {
-                "_id": "wabaj238238jdsnfsj23",
-                "email": "bog@bar.com",
-                "firstName": "Fran",
-                "lastName": "Jones",
-                "address": "8803 Dark St",
-                "entryDate": "2014-05-07T17:31:20+00:00"
-            },
-            "new_record": {
-                "_id": "wabaj238238jdsnfsj23",
-                "email": "bog@bar.com",
-                "firstName": "Fran",
-                "lastName": "Jones",
-                "address": "8803 Dark St",
-                "entryDate": "2014-05-07T17:31:20+00:00"
-            },
-            "changes": []
-        },
-        {
-            "replaced_record": {
-                "_id": "vug789238jdsnfsj23",
-                "email": "foo1@bar.com",
-                "firstName": "Blake",
-                "lastName": "Douglas",
-                "address": "123 Reach St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "new_record": {
-                "_id": "vug789238jdsnfsj23",
-                "email": "foo1@bar.com",
-                "firstName": "Blake",
-                "lastName": "Douglas",
-                "address": "123 Reach St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "changes": []
-        },
-        {
-            "replaced_record": {
-                "_id": "wuj08238jdsnfsj23",
-                "email": "foo@bar.com",
-                "firstName": "Micah",
-                "lastName": "Valmer",
-                "address": "123 Street St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "new_record": {
-                "_id": "wuj08238jdsnfsj23",
-                "email": "foo@bar.com",
-                "firstName": "Micah",
-                "lastName": "Valmer",
-                "address": "123 Street St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "changes": []
-        },
-        {
-            "replaced_record": {
-                "_id": "belr28238jdsnfsj23",
-                "email": "mae@bar.com",
-                "firstName": "Tallulah",
-                "lastName": "Smith",
-                "address": "123 Water St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "new_record": {
-                "_id": "belr28238jdsnfsj23",
-                "email": "mae@bar.com",
-                "firstName": "Tallulah",
-                "lastName": "Smith",
-                "address": "123 Water St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "changes": []
-        },
-        {
-            "replaced_record": {
-                "_id": "jkj238238jdsnfsj23",
-                "email": "bill@bar.com",
-                "firstName": "John",
-                "lastName": "Smith",
-                "address": "888 Mayberry St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "new_record": {
-                "_id": "jkj238238jdsnfsj23",
-                "email": "bill@bar.com",
-                "firstName": "John",
-                "lastName": "Smith",
-                "address": "888 Mayberry St",
-                "entryDate": "2014-05-07T17:33:20+00:00"
-            },
-            "changes": []
         }
     ]
 }
