@@ -94,7 +94,6 @@ function deduplicateLeads(array $leads): array {
         }
     }
 
-    // Remove helper fields before saving
     $deduped = array_map(fn($lead) => array_diff_key($lead, ['_originalIndex' => true]), $records);
     return [$deduped, $log];
 }
