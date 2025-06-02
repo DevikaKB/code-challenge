@@ -5,9 +5,8 @@
 /**
  * Loads leads from a JSON file.
  */
-function loadLeads($filename) {
-    $json = file_get_contents($filename);
-    $data = json_decode($json, true);
+function loadLeads($filename): array {
+    $data = json_decode(file_get_contents($filename), true);
     return $data['leads'] ?? [];
 }
 
@@ -18,7 +17,7 @@ function loadLeads($filename) {
  * @param array $data The data to save.
  * @param string $rootKey The root key for the JSON structure.
  */
-function saveJson($filename, $data, $rootKey = 'leads') {
+function saveJson($filename, $data, $rootKey = 'leads'): void {
     file_put_contents($filename, json_encode([$rootKey => $data], JSON_PRETTY_PRINT));
 }
 
@@ -28,7 +27,7 @@ function saveJson($filename, $data, $rootKey = 'leads') {
  * @param string $dateStr The date string to parse.
  * @return DateTime The parsed date.
  */
-function parseDate($dateStr) {
+function parseDate(string $dateStr): DateTime {
     return new DateTime($dateStr);
 }
 
@@ -39,43 +38,28 @@ function parseDate($dateStr) {
  * @return array An array containing the deduplicated leads and a change log.
  */
 function deduplicateLeads(array $leads): array {
-    $records = [];
+    $byId = [];
+    $byEmail = [];
     $log = [];
 
     foreach ($leads as $index => $lead) {
         $lead['_originalIndex'] = $index;
+        $id = $lead['_id'];
+        $email = $lead['email'];
 
-        // Unique key: _id or email
-        $key = $lead['_id'];
-        if (isset($records[$key])) {
-            $existing = $records[$key];
-        } else {
-            // Check by email if _id not seen yet
-            $emailKey = array_search($lead['email'], array_column($records, 'email'));
-            $key = $emailKey !== false ? array_keys($records)[$emailKey] : $key;
-            $existing = $records[$key] ?? null;
-        }
-
-        $replace = false;
+        $existing = $byId[$id] ?? $byEmail[$email] ?? null;
 
         if ($existing) {
-            $dateNew = parseDate($lead['entryDate']);
-            $dateOld = parseDate($existing['entryDate']);
+            $newDate = parseDate($lead['entryDate']);
+            $oldDate = parseDate($existing['entryDate']);
 
-            if ($dateNew > $dateOld || ($dateNew == $dateOld && $lead['_originalIndex'] > $existing['_originalIndex'])) {
-                $replace = true;
-            }
+            $isNewer = $newDate > $oldDate || ($newDate == $oldDate && $index > $existing['_originalIndex']);
 
-            if ($replace) {
+            if ($isNewer) {
                 $changes = [];
-
                 foreach ($lead as $field => $value) {
-                    if ($field === '_originalIndex') continue;
-                    if (!array_key_exists($field, $existing) || $existing[$field] !== $value) {
-                        $changes[$field] = [
-                            'from' => $existing[$field] ?? null,
-                            'to' => $value
-                        ];
+                    if ($field !== '_originalIndex' && ($existing[$field] ?? null) !== $value) {
+                        $changes[$field] = ['from' => $existing[$field] ?? null, 'to' => $value];
                     }
                 }
 
@@ -87,37 +71,50 @@ function deduplicateLeads(array $leads): array {
                     ];
                 }
 
-                $records[$key] = $lead;
+                $byId[$id] = $lead;
+                $byEmail[$email] = $lead;
             }
         } else {
-            $records[$key] = $lead;
+            $byId[$id] = $lead;
+            $byEmail[$email] = $lead;
         }
     }
 
-    $deduped = array_map(fn($lead) => array_diff_key($lead, ['_originalIndex' => true]), $records);
-    return [$deduped, $log];
+    // Final unique leads from $byId
+    $seen = [];
+    $uniqueLeads = [];
+
+    foreach ($byId as $lead) {
+        unset($lead['_originalIndex']);
+        $hash = md5(json_encode($lead));
+        if (!isset($seen[$hash])) {
+            $uniqueLeads[] = $lead;
+            $seen[$hash] = true;
+        }
+    }
+
+    return [$uniqueLeads, $log];
 }
+
 
 /**
  * Main function to run the deduplication process.
  *
  * @param array $argv The command line arguments.
  */
-function main($argv) {
-    // Check for correct number of arguments
+function main($argv): void {
     if (count($argv) !== 4) {
         echo "Usage: php deduplicate_leads.php leads.json deduped_leads.json changes_log.json\n";
         exit(1);
     }
 
     [$inputFile, $outputFile, $logFile] = array_slice($argv, 1);
-    $leads = loadLeads($inputFile);
-    [$dedupedLeads, $changeLog] = deduplicateLeads($leads);
+    [$deduped, $log] = deduplicateLeads(loadLeads($inputFile));
 
-    saveJson($outputFile, $dedupedLeads);
-    saveJson($logFile, $changeLog, 'changes');
+    saveJson($outputFile, $deduped);
+    saveJson($logFile, $log, 'changes');
 
-    echo "Deduplication complete: " . count($dedupedLeads) . " unique records saved.\n";
+    echo "Deduplication complete: " . count($deduped) . " unique records saved.\n";
 }
 
 // Run the main function with command line arguments
